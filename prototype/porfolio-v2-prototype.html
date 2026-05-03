@@ -1,0 +1,518 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Option 11 - Side Nav Mix</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #f3eee3;
+      --ink: #11110f;
+      --muted: #6d6458;
+      --line: #171614;
+      --card: #fff9ec;
+      --red: #ff4938;
+      --blue: #2658ff;
+      --green: #178653;
+      --yellow: #f6ce3d;
+      --rail: 104px;
+      --max: 1180px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        linear-gradient(rgba(17,17,15,.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(17,17,15,.045) 1px, transparent 1px),
+        var(--paper);
+      background-size: 28px 28px;
+      font-family: "DM Sans", sans-serif;
+    }
+    .side-nav {
+      position: fixed;
+      inset: 18px auto 18px 18px;
+      z-index: 30;
+      width: var(--rail);
+      border: 2px solid var(--line);
+      background: var(--card);
+      box-shadow: 8px 8px 0 var(--line);
+      display: grid;
+      grid-template-rows: 86px 1fr 116px;
+    }
+    .mark {
+      display: grid;
+      place-items: center;
+      border-bottom: 2px solid var(--line);
+      color: var(--ink);
+      background: var(--card);
+      text-decoration: none;
+    }
+    .mark img {
+      width: 52px;
+      height: 52px;
+      border: 2px solid var(--line);
+      border-radius: 50%;
+      background: #55e6e1;
+      box-shadow: 4px 4px 0 var(--line);
+      transform: rotate(-5deg);
+    }
+    .rail-links {
+      display: grid;
+      align-content: center;
+      gap: 8px;
+      padding: 12px 10px;
+    }
+    .rail-links a {
+      min-height: 78px;
+      color: var(--ink);
+      text-decoration: none;
+      border: 2px solid transparent;
+      display: grid;
+      place-items: center;
+      gap: 8px;
+      font: 700 11px/1 "Space Mono", monospace;
+      text-transform: uppercase;
+      border-radius: 18px;
+      transition: background .18s ease, color .18s ease, border-color .18s ease, transform .18s ease;
+    }
+    .rail-links a:first-child { border-top: 2px solid transparent; }
+    .rail-links a:hover {
+      background: var(--yellow);
+      border-color: var(--line);
+      transform: rotate(-2deg);
+    }
+    .rail-links svg {
+      width: 28px;
+      height: 28px;
+      stroke-width: 2;
+    }
+    .rail-bottom {
+      border-top: 2px solid var(--line);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+    .rail-bottom a {
+      display: grid;
+      place-items: center;
+      color: var(--ink);
+      text-decoration: none;
+      font: 700 12px/1 "Space Mono", monospace;
+      border-right: 2px solid var(--line);
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      background: rgba(255,255,255,.38);
+    }
+    .rail-bottom a:last-child { border-right: 0; }
+    .page {
+      margin-left: calc(var(--rail) + 28px);
+    }
+    .wrap {
+      width: min(var(--max), calc(92vw - var(--rail) / 2));
+      margin: 0 auto;
+    }
+    .top-strip {
+      min-height: 54px;
+      border-bottom: 2px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font: 700 12px/1 "Space Mono", monospace;
+      text-transform: uppercase;
+    }
+    .hero {
+      min-height: calc(100vh - 54px);
+      display: grid;
+      grid-template-columns: 1.25fr .75fr;
+      gap: 30px;
+      align-items: center;
+      padding: 34px 0 54px;
+    }
+    .hello {
+      display: grid;
+      gap: 10px;
+    }
+    .sentence {
+      display: grid;
+      grid-template-columns: 70px 1fr;
+      gap: 14px;
+      align-items: start;
+    }
+    .sentence small {
+      padding-top: 14px;
+      font: 700 15px/1 "Space Mono", monospace;
+      color: var(--red);
+    }
+    h1 {
+      margin: 0;
+      font: 400 clamp(4.4rem, 10vw, 11rem)/.85 Anton, sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+    .role {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      font: 400 clamp(2.7rem, 5.5vw, 6rem)/.9 Anton, sans-serif;
+      text-transform: uppercase;
+    }
+    .word {
+      border: 2px solid var(--line);
+      padding: 6px 12px 10px;
+      background: var(--yellow);
+      box-shadow: 5px 5px 0 var(--line);
+    }
+    .word:nth-child(2) { background: var(--blue); color: #fff; }
+    .word:nth-child(3) { background: var(--green); color: #fff; }
+    .lede {
+      max-width: 720px;
+      color: var(--muted);
+      font-size: 20px;
+      margin: 20px 0 0 84px;
+    }
+    .actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin: 24px 0 0 84px;
+    }
+    .btn {
+      color: var(--ink);
+      text-decoration: none;
+      border: 2px solid var(--line);
+      background: var(--card);
+      padding: 12px 15px;
+      font: 700 13px/1 "Space Mono", monospace;
+      box-shadow: 5px 5px 0 var(--line);
+      transition: transform .16s ease, box-shadow .16s ease;
+    }
+    .btn:hover {
+      transform: translate(3px, 3px);
+      box-shadow: 2px 2px 0 var(--line);
+    }
+    .btn.primary {
+      background: var(--red);
+      color: #fff;
+    }
+    .photo-card {
+      border: 2px solid var(--line);
+      background: var(--card);
+      padding: 10px;
+      box-shadow: 10px 10px 0 var(--line);
+      transform: rotate(1.5deg);
+    }
+    .photo-card img {
+      width: 100%;
+      height: min(68vh, 640px);
+      object-fit: cover;
+      object-position: center 22%;
+      display: block;
+    }
+    .metrics {
+      border-top: 2px solid var(--line);
+      border-bottom: 2px solid var(--line);
+      background: var(--card);
+    }
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+    }
+    .metric {
+      min-height: 136px;
+      padding: 16px;
+      border-right: 2px solid var(--line);
+      display: grid;
+      align-content: space-between;
+    }
+    .metric:last-child { border-right: 0; }
+    .metric b {
+      font: 400 42px/.9 Anton, sans-serif;
+      color: var(--blue);
+    }
+    .metric span {
+      color: var(--muted);
+      font-weight: 700;
+    }
+    .section {
+      display: grid;
+      grid-template-columns: 250px 1fr;
+      gap: 34px;
+      padding: 76px 0;
+      border-bottom: 2px solid var(--line);
+    }
+    .section-title {
+      position: sticky;
+      top: 24px;
+      align-self: start;
+    }
+    .section-title small {
+      font: 700 14px/1 "Space Mono", monospace;
+      color: var(--red);
+    }
+    .section-title h2 {
+      margin: 10px 0 0;
+      font: 400 58px/.9 Anton, sans-serif;
+      text-transform: uppercase;
+    }
+    .stack {
+      display: grid;
+      gap: 16px;
+    }
+    .case {
+      display: grid;
+      grid-template-columns: 82px 1fr 150px;
+      gap: 18px;
+      border: 2px solid var(--line);
+      background: var(--card);
+      padding: 16px;
+      box-shadow: 7px 7px 0 var(--line);
+    }
+    .case-num {
+      font: 400 58px/.85 Anton, sans-serif;
+      color: var(--green);
+    }
+    .case h3 {
+      margin: 0 0 8px;
+      font-size: 24px;
+    }
+    .case p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 17px;
+    }
+    .tag {
+      justify-self: end;
+      align-self: start;
+      border: 2px solid var(--line);
+      background: var(--yellow);
+      padding: 8px 10px;
+      font: 700 12px/1 "Space Mono", monospace;
+      text-transform: uppercase;
+    }
+    .skills {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+    .skill {
+      min-height: 112px;
+      border: 2px solid var(--line);
+      background: var(--card);
+      padding: 14px;
+      display: grid;
+      align-content: end;
+      font: 700 17px/1.1 "Space Mono", monospace;
+      box-shadow: 5px 5px 0 var(--line);
+    }
+    .contact {
+      min-height: 60vh;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 26px;
+      align-items: end;
+      padding: 80px 0 46px;
+    }
+    .contact h2 {
+      margin: 0;
+      font: 400 clamp(4.2rem, 10vw, 10rem)/.85 Anton, sans-serif;
+      text-transform: uppercase;
+    }
+    .contact a {
+      display: block;
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 2px solid var(--line);
+      padding: 12px 0;
+      font: 700 14px/1 "Space Mono", monospace;
+      text-transform: uppercase;
+    }
+    @media (max-width: 980px) {
+      :root { --rail: 78px; }
+      .side-nav {
+        inset: 14px auto 14px 14px;
+        grid-template-rows: 70px 1fr 96px;
+        box-shadow: 5px 5px 0 var(--line);
+      }
+      .mark { font-size: 20px; }
+      .mark img {
+        width: 44px;
+        height: 44px;
+        box-shadow: 3px 3px 0 var(--line);
+      }
+      .rail-links { padding: 8px 7px; gap: 6px; }
+      .rail-links a { min-height: 70px; font-size: 0; border-radius: 14px; }
+      .rail-links svg { width: 25px; height: 25px; }
+      .hero, .section, .contact { grid-template-columns: 1fr; }
+      .photo-card { transform: none; }
+      .metric-grid { grid-template-columns: repeat(2, 1fr); }
+      .metric { border-bottom: 2px solid var(--line); }
+      .case { grid-template-columns: 1fr; }
+      .tag { justify-self: start; }
+      .skills { grid-template-columns: repeat(2, 1fr); }
+      .section-title { position: static; }
+    }
+    @media (max-width: 620px) {
+      :root { --rail: 0px; }
+      .side-nav {
+        inset: auto 12px 12px 12px;
+        width: auto;
+        height: 70px;
+        grid-template-rows: 1fr;
+        grid-template-columns: 64px 1fr;
+        border: 2px solid var(--line);
+        box-shadow: 5px 5px 0 var(--line);
+      }
+      .mark { border-bottom: 0; border-right: 2px solid var(--line); }
+      .rail-links {
+        grid-auto-flow: column;
+        grid-auto-columns: 1fr;
+        align-content: stretch;
+        padding: 6px;
+      }
+      .rail-links a {
+        min-height: 54px;
+        border-top: 0;
+        border-bottom: 0;
+        border-right: 0;
+        border-radius: 12px;
+      }
+      .rail-links a:first-child { border-top: 0; }
+      .rail-bottom { display: none; }
+      .page { margin-left: 0; padding-bottom: 74px; }
+      .wrap { width: min(92vw, var(--max)); }
+      .top-strip { display: none; }
+      .hero { padding-top: 34px; min-height: auto; }
+      h1 { font-size: 64px; }
+      .role { font-size: 38px; }
+      .sentence { grid-template-columns: 42px 1fr; }
+      .lede, .actions { margin-left: 0; }
+      .metric-grid, .skills { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <aside class="side-nav" aria-label="Primary navigation">
+    <a class="mark" href="#home" aria-label="Atharv Patil home">
+      <img src="../images/logo.png" alt="Atharv Patil logo">
+    </a>
+    <nav class="rail-links">
+      <a href="#home" aria-label="Home">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M9 20v-6h6v6"/></svg>
+        Home
+      </a>
+      <a href="#experience" aria-label="Experience">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 7h16v13H4z"/><path d="M9 7V4h6v3"/><path d="M4 13h16"/></svg>
+        Work
+      </a>
+      <a href="#skills" aria-label="Skills">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2l3 7h7l-5.5 4.2 2.2 7L12 16l-6.7 4.2 2.2-7L2 9h7z"/></svg>
+        Skills
+      </a>
+      <a href="#projects" aria-label="Projects">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 5h16v14H4z"/><path d="M4 10h16"/><path d="M9 14h6"/></svg>
+        Projects
+      </a>
+      <a href="#contact" aria-label="Contact">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 5h16v14H4z"/><path d="M4 7l8 6 8-6"/></svg>
+        Contact
+      </a>
+    </nav>
+    <div class="rail-bottom">
+      <a href="#">GitHub</a>
+      <a href="#">LinkedIn</a>
+    </div>
+  </aside>
+
+  <main class="page">
+    <div class="top-strip wrap">
+      <span>Software Engineer / USC MSCS</span>
+      <span>Java | AWS | RAG | React</span>
+    </div>
+
+    <section id="home" class="hero wrap">
+      <div class="hello">
+        <div class="sentence">
+          <small>01</small>
+          <h1>Hello, I'm<br>Atharv.</h1>
+        </div>
+        <div class="sentence">
+          <small>02</small>
+          <div class="role">
+            <span class="word">Java</span>
+            <span class="word">AWS</span>
+            <span class="word">RAG</span>
+          </div>
+        </div>
+        <div class="sentence">
+          <small>03</small>
+          <h1>Engineer.</h1>
+        </div>
+        <p class="lede">I build scalable backend systems and retrieval products with measurable outcomes: faster processing, lower infra cost, and tools that people actually use.</p>
+        <div class="actions">
+          <a class="btn primary" href="#experience">See Work</a>
+          <a class="btn" href="#contact">Contact Me</a>
+          <a class="btn" href="#">Download CV</a>
+        </div>
+      </div>
+      <figure class="photo-card">
+        <img src="../images/IMG_3707_upright.jpg" alt="Atharv Sandeep Patil">
+      </figure>
+    </section>
+
+    <section class="metrics">
+      <div class="metric-grid wrap">
+        <div class="metric"><b>96%</b><span>runtime reduction</span></div>
+        <div class="metric"><b>600K</b><span>records processed</span></div>
+        <div class="metric"><b>60%</b><span>infra saved</span></div>
+        <div class="metric"><b>500K+</b><span>clients impacted</span></div>
+        <div class="metric"><b>9,377</b><span>cases retrieved</span></div>
+      </div>
+    </section>
+
+    <section id="experience" class="section wrap">
+      <aside class="section-title"><small>04</small><h2>Experience</h2></aside>
+      <div class="stack">
+        <article class="case"><div class="case-num">01</div><div><h3>J.P. Morgan Chase - Software Development Engineer II</h3><p>Extended a RAG application with client-in-context retrieval across specialized sub-agents and led migration toward Elasticsearch and Google ADK.</p></div><div class="tag">RAG / ADK</div></article>
+        <article class="case"><div class="case-num">02</div><div><h3>J.P. Morgan Chase - Software Development Engineer I</h3><p>Architected an offset calculator with Spring Boot, AWS Lambda, and multithreading, reducing runtime from about 2 hours to about 8 minutes.</p></div><div class="tag">96% Faster</div></article>
+        <article class="case"><div class="case-num">03</div><div><h3>J.P. Morgan Chase - Software Engineer Intern</h3><p>Optimized internal query translation, added Databricks SQL support, and improved nested retrieval with Apache Calcite.</p></div><div class="tag">Internship</div></article>
+      </div>
+    </section>
+
+    <section id="skills" class="section wrap">
+      <aside class="section-title"><small>05</small><h2>Skills</h2></aside>
+      <div class="skills">
+        <div class="skill">Java</div>
+        <div class="skill">Spring Boot</div>
+        <div class="skill">Python</div>
+        <div class="skill">AWS</div>
+        <div class="skill">React</div>
+        <div class="skill">LLM / RAG</div>
+        <div class="skill">Neo4j</div>
+        <div class="skill">Docker</div>
+      </div>
+    </section>
+
+    <section id="projects" class="section wrap">
+      <aside class="section-title"><small>06</small><h2>Projects</h2></aside>
+      <div class="stack">
+        <article class="case"><div class="case-num">01</div><div><h3>Healthcare Platform</h3><p>Full-stack platform used by about 200 healthcare workers to remotely track and counsel mothers in rural India.</p></div><div class="tag">Code For Good</div></article>
+        <article class="case"><div class="case-num">02</div><div><h3>Voyageur</h3><p>MERN travel website with a custom scraped Hotels API supporting search and booking across 20+ Indian cities.</p></div><div class="tag">MERN</div></article>
+      </div>
+    </section>
+
+    <section id="contact" class="contact wrap">
+      <h2>Let's<br>Build.</h2>
+      <div>
+        <a href="mailto:atharvsa@usc.edu">atharvsa@usc.edu</a>
+        <a href="#">LinkedIn</a>
+        <a href="#">GitHub</a>
+        <a href="#">Resume</a>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
