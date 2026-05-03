@@ -18,8 +18,23 @@
       --blue: #2658ff;
       --green: #178653;
       --yellow: #f6ce3d;
+      --grid-line: rgba(17,17,15,.045);
+      --dock-fill: rgba(255,255,255,.38);
       --rail: 104px;
       --max: 1180px;
+    }
+    [data-theme="dark"] {
+      --paper: #10100f;
+      --ink: #f3eee3;
+      --muted: #b9ad9b;
+      --line: #f3eee3;
+      --card: #191817;
+      --red: #ff5a48;
+      --blue: #6f92ff;
+      --green: #35b978;
+      --yellow: #f6ce3d;
+      --grid-line: rgba(243,238,227,.055);
+      --dock-fill: rgba(255,255,255,.07);
     }
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
@@ -27,11 +42,12 @@
       margin: 0;
       color: var(--ink);
       background:
-        linear-gradient(rgba(17,17,15,.045) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(17,17,15,.045) 1px, transparent 1px),
+        linear-gradient(var(--grid-line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-line) 1px, transparent 1px),
         var(--paper);
       background-size: 28px 28px;
       font-family: "DM Sans", sans-serif;
+      transition: background .22s ease, color .22s ease;
     }
     .side-nav {
       position: fixed;
@@ -105,7 +121,7 @@
       border-right: 2px solid var(--line);
       writing-mode: vertical-rl;
       transform: rotate(180deg);
-      background: rgba(255,255,255,.38);
+      background: var(--dock-fill);
     }
     .rail-bottom a:last-child { border-right: 0; }
     .page {
@@ -123,6 +139,43 @@
       align-items: center;
       font: 700 12px/1 "Space Mono", monospace;
       text-transform: uppercase;
+    }
+    .top-strip span {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .theme-toggle {
+      color: var(--ink);
+      background: var(--card);
+      border: 2px solid var(--line);
+      padding: 8px 10px;
+      font: 700 12px/1 "Space Mono", monospace;
+      text-transform: uppercase;
+      cursor: pointer;
+      box-shadow: 4px 4px 0 var(--line);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: transform .16s ease, box-shadow .16s ease, background .16s ease;
+    }
+    .theme-toggle:hover {
+      background: var(--yellow);
+      transform: translate(2px, 2px);
+      box-shadow: 2px 2px 0 var(--line);
+    }
+    .toggle-icon {
+      width: 18px;
+      height: 18px;
+      border: 2px solid var(--line);
+      border-radius: 50%;
+      background: var(--yellow);
+      box-shadow: inset -5px -2px 0 var(--ink);
+    }
+    [data-theme="dark"] .toggle-icon {
+      background: var(--ink);
+      box-shadow: inset 6px 0 0 var(--yellow);
     }
     .hero {
       min-height: calc(100vh - 54px);
@@ -384,7 +437,14 @@
       .rail-bottom { display: none; }
       .page { margin-left: 0; padding-bottom: 74px; }
       .wrap { width: min(92vw, var(--max)); }
-      .top-strip { display: none; }
+      .top-strip {
+        display: flex;
+        min-height: auto;
+        padding: 14px 0;
+        gap: 12px;
+        align-items: flex-start;
+        flex-direction: column;
+      }
       .hero { padding-top: 34px; min-height: auto; }
       h1 { font-size: 64px; }
       .role { font-size: 38px; }
@@ -430,7 +490,13 @@
   <main class="page">
     <div class="top-strip wrap">
       <span>Software Engineer / USC MSCS</span>
-      <span>Java | AWS | RAG | React</span>
+      <span>
+        Java | AWS | RAG | React
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark theme" aria-pressed="false">
+          <span class="toggle-icon" aria-hidden="true"></span>
+          <span id="themeLabel">Light</span>
+        </button>
+      </span>
     </div>
 
     <section id="home" class="hero wrap">
@@ -514,5 +580,28 @@
       </div>
     </section>
   </main>
+  <script>
+    (() => {
+      const root = document.documentElement;
+      const toggle = document.getElementById("themeToggle");
+      const label = document.getElementById("themeLabel");
+      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
+
+      const applyTheme = (theme) => {
+        root.dataset.theme = theme;
+        toggle.setAttribute("aria-pressed", String(theme === "dark"));
+        label.textContent = theme === "dark" ? "Dark" : "Light";
+      };
+
+      const savedTheme = localStorage.getItem("portfolio-theme");
+      applyTheme(savedTheme || (prefersDark.matches ? "dark" : "light"));
+
+      toggle.addEventListener("click", () => {
+        const nextTheme = root.dataset.theme === "dark" ? "light" : "dark";
+        localStorage.setItem("portfolio-theme", nextTheme);
+        applyTheme(nextTheme);
+      });
+    })();
+  </script>
 </body>
 </html>
