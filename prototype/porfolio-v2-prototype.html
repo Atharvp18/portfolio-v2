@@ -315,6 +315,92 @@
       display: grid;
       gap: 16px;
     }
+    .timeline {
+      position: relative;
+      display: grid;
+      gap: 18px;
+    }
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 38px;
+      top: 10px;
+      bottom: 10px;
+      width: 2px;
+      background: var(--line);
+    }
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 82px 1fr;
+      gap: 18px;
+      position: relative;
+    }
+    .timeline-dot {
+      width: 78px;
+      height: 78px;
+      border: 2px solid var(--line);
+      background: var(--yellow);
+      display: grid;
+      place-items: center;
+      font: 400 38px/.85 Anton, sans-serif;
+      color: var(--ink);
+      box-shadow: 5px 5px 0 var(--line);
+      z-index: 1;
+    }
+    .timeline-card {
+      border: 2px solid var(--line);
+      background: var(--card);
+      box-shadow: 7px 7px 0 var(--line);
+      padding: 18px;
+      display: grid;
+      gap: 12px;
+      transition: transform .16s ease, box-shadow .16s ease;
+    }
+    .timeline-card:hover {
+      transform: translate(3px, 3px);
+      box-shadow: 4px 4px 0 var(--line);
+    }
+    .timeline-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .timeline-role {
+      border: 2px solid var(--line);
+      background: var(--green);
+      color: #fff;
+      padding: 7px 10px;
+      font: 700 12px/1 "Space Mono", monospace;
+      text-transform: uppercase;
+    }
+    .timeline-date {
+      color: var(--muted);
+      font: 700 12px/1 "Space Mono", monospace;
+      text-transform: uppercase;
+    }
+    .timeline-card h3 {
+      margin: 0;
+      font-size: 25px;
+    }
+    .timeline-company {
+      color: var(--blue);
+      font: 700 14px/1 "Space Mono", monospace;
+      text-transform: uppercase;
+    }
+    .timeline-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.5;
+    }
+    .timeline-highlight {
+      border-left: 6px solid var(--red);
+      background: var(--dock-fill);
+      padding: 12px 14px;
+      color: var(--ink);
+      font: 700 14px/1.45 "Space Mono", monospace;
+    }
     .case {
       display: grid;
       grid-template-columns: 82px 1fr 150px;
@@ -361,6 +447,96 @@
       font: 700 17px/1.1 "Space Mono", monospace;
       box-shadow: 5px 5px 0 var(--line);
     }
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+    .project-card {
+      min-height: 360px;
+      border: 2px solid var(--line);
+      background: var(--card);
+      box-shadow: 7px 7px 0 var(--line);
+      padding: 18px;
+      display: grid;
+      align-content: space-between;
+      gap: 18px;
+      transition: transform .16s ease, box-shadow .16s ease, background .16s ease;
+    }
+    .project-card:nth-child(2) {
+      transform: rotate(1deg);
+    }
+    .project-card:hover {
+      transform: translate(3px, 3px);
+      box-shadow: 4px 4px 0 var(--line);
+      background: var(--yellow);
+    }
+    .project-card:nth-child(2):hover {
+      transform: rotate(1deg) translate(3px, 3px);
+    }
+    .project-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 14px;
+    }
+    .project-tag {
+      width: fit-content;
+      border: 2px solid var(--line);
+      background: var(--green);
+      color: #fff;
+      padding: 7px 10px;
+      font: 700 12px/1 "Space Mono", monospace;
+      text-transform: uppercase;
+    }
+    .project-index {
+      font: 400 58px/.85 Anton, sans-serif;
+      color: var(--blue);
+    }
+    .project-card h3 {
+      margin: 0;
+      font-size: 32px;
+      line-height: 1;
+    }
+    .project-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.5;
+    }
+    .project-bullets {
+      list-style: none;
+      display: grid;
+      gap: 9px;
+      padding: 0;
+      margin: 0;
+    }
+    .project-bullets li {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.4;
+      display: grid;
+      grid-template-columns: 18px 1fr;
+      gap: 8px;
+    }
+    .project-bullets li::before {
+      content: "->";
+      color: var(--red);
+      font: 700 13px/1.4 "Space Mono", monospace;
+    }
+    .tech-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .tech-chip {
+      border: 2px solid var(--line);
+      background: var(--dock-fill);
+      color: var(--ink);
+      padding: 7px 9px;
+      font: 700 12px/1 "Space Mono", monospace;
+      text-transform: uppercase;
+    }
     .contact {
       min-height: 60vh;
       display: grid;
@@ -403,9 +579,19 @@
       .photo-card { transform: none; }
       .metric-grid { grid-template-columns: repeat(2, 1fr); }
       .metric { border-bottom: 2px solid var(--line); }
+      .timeline::before { left: 34px; }
+      .timeline-item { grid-template-columns: 74px 1fr; }
+      .timeline-dot {
+        width: 70px;
+        height: 70px;
+        font-size: 34px;
+      }
       .case { grid-template-columns: 1fr; }
       .tag { justify-self: start; }
       .skills { grid-template-columns: repeat(2, 1fr); }
+      .project-grid { grid-template-columns: 1fr; }
+      .project-card:nth-child(2) { transform: none; }
+      .project-card:nth-child(2):hover { transform: translate(3px, 3px); }
       .section-title { position: static; }
     }
     @media (max-width: 620px) {
@@ -450,7 +636,14 @@
       .role { font-size: 38px; }
       .sentence { grid-template-columns: 42px 1fr; }
       .lede, .actions { margin-left: 0; }
-      .metric-grid, .skills { grid-template-columns: 1fr; }
+      .timeline::before { display: none; }
+      .timeline-item { grid-template-columns: 1fr; }
+      .timeline-dot {
+        width: fit-content;
+        height: auto;
+        padding: 8px 12px;
+      }
+      .metric-grid, .skills, .project-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -541,10 +734,48 @@
 
     <section id="experience" class="section wrap">
       <aside class="section-title"><small>04</small><h2>Experience</h2></aside>
-      <div class="stack">
-        <article class="case"><div class="case-num">01</div><div><h3>J.P. Morgan Chase - Software Development Engineer II</h3><p>Extended a RAG application with client-in-context retrieval across specialized sub-agents and led migration toward Elasticsearch and Google ADK.</p></div><div class="tag">RAG / ADK</div></article>
-        <article class="case"><div class="case-num">02</div><div><h3>J.P. Morgan Chase - Software Development Engineer I</h3><p>Architected an offset calculator with Spring Boot, AWS Lambda, and multithreading, reducing runtime from about 2 hours to about 8 minutes.</p></div><div class="tag">96% Faster</div></article>
-        <article class="case"><div class="case-num">03</div><div><h3>J.P. Morgan Chase - Software Engineer Intern</h3><p>Optimized internal query translation, added Databricks SQL support, and improved nested retrieval with Apache Calcite.</p></div><div class="tag">Internship</div></article>
+      <div class="timeline">
+        <article class="timeline-item">
+          <div class="timeline-dot">01</div>
+          <div class="timeline-card">
+            <div class="timeline-meta">
+              <span class="timeline-role">SDE II</span>
+              <span class="timeline-date">Jan 2026 - Jun 2026</span>
+            </div>
+            <h3>Software Development Engineer II</h3>
+            <div class="timeline-company">J.P. Morgan Chase & Co.</div>
+            <p>Extended the RAG application with client-in-context retrieval across five specialized sub-agents, enabling financial advisors to ask client-specific questions with real-time data retrieval.</p>
+            <div class="timeline-highlight">Modernizing the platform from ChromaDB to Elasticsearch and from Python RAG to an agentic Google ADK framework.</div>
+          </div>
+        </article>
+
+        <article class="timeline-item">
+          <div class="timeline-dot">02</div>
+          <div class="timeline-card">
+            <div class="timeline-meta">
+              <span class="timeline-role">SDE I</span>
+              <span class="timeline-date">Jan 2024 - Jan 2026</span>
+            </div>
+            <h3>Software Development Engineer I</h3>
+            <div class="timeline-company">J.P. Morgan Chase & Co.</div>
+            <p>Architected an offset calculator with Spring Boot, AWS Lambda, and multithreading to process about 600K records while automating report delivery through a React dashboard.</p>
+            <div class="timeline-highlight">Reduced runtime from about 2 hours to about 8 minutes, a 96% improvement.</div>
+          </div>
+        </article>
+
+        <article class="timeline-item">
+          <div class="timeline-dot">03</div>
+          <div class="timeline-card">
+            <div class="timeline-meta">
+              <span class="timeline-role">Intern</span>
+              <span class="timeline-date">May 2023 - Jul 2023</span>
+            </div>
+            <h3>Software Engineer Program Intern</h3>
+            <div class="timeline-company">J.P. Morgan Chase & Co.</div>
+            <p>Optimized an internal query-language parser, added Databricks SQL dialect support, and built nested data retrieval with Apache Calcite.</p>
+            <div class="timeline-highlight">Cut response latency by about 25%, reduced query errors by about 30%, and improved retrieval speed by about 35%.</div>
+          </div>
+        </article>
       </div>
     </section>
 
@@ -563,10 +794,51 @@
     </section>
 
     <section id="projects" class="section wrap">
-      <aside class="section-title"><small>06</small><h2>Projects</h2></aside>
-      <div class="stack">
-        <article class="case"><div class="case-num">01</div><div><h3>Healthcare Platform</h3><p>Full-stack platform used by about 200 healthcare workers to remotely track and counsel mothers in rural India.</p></div><div class="tag">Code For Good</div></article>
-        <article class="case"><div class="case-num">02</div><div><h3>Voyageur</h3><p>MERN travel website with a custom scraped Hotels API supporting search and booking across 20+ Indian cities.</p></div><div class="tag">MERN</div></article>
+      <aside class="section-title"><small>06</small><h2>What I've Shipped</h2></aside>
+      <div class="project-grid">
+        <article class="project-card">
+          <div class="project-top">
+            <span class="project-tag">Code For Good</span>
+            <span class="project-index">01</span>
+          </div>
+          <div>
+            <h3>Healthcare Platform</h3>
+            <p>Full-stack platform enabling remote tracking and counselling of mothers in rural India.</p>
+          </div>
+          <ul class="project-bullets">
+            <li>Used by about 200 healthcare workers across field deployments</li>
+            <li>Supported smarter medicine and vaccine selection workflows</li>
+            <li>Built during the J.P. Morgan Code For Good hackathon</li>
+          </ul>
+          <div class="tech-stack">
+            <span class="tech-chip">Node.js</span>
+            <span class="tech-chip">Express</span>
+            <span class="tech-chip">MongoDB</span>
+            <span class="tech-chip">Firebase</span>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-top">
+            <span class="project-tag">MERN</span>
+            <span class="project-index">02</span>
+          </div>
+          <div>
+            <h3>Voyageur</h3>
+            <p>Travel website with a custom scraped Hotels API supporting search and booking across Indian cities.</p>
+          </div>
+          <ul class="project-bullets">
+            <li>Covered 20+ Indian cities with hotel discovery and booking flows</li>
+            <li>Built a custom Hotels API through web scraping</li>
+            <li>Implemented secure authentication and data encryption</li>
+          </ul>
+          <div class="tech-stack">
+            <span class="tech-chip">MongoDB</span>
+            <span class="tech-chip">Express</span>
+            <span class="tech-chip">React</span>
+            <span class="tech-chip">Node.js</span>
+          </div>
+        </article>
       </div>
     </section>
 
