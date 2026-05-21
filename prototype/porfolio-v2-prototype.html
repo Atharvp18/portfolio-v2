@@ -208,19 +208,20 @@
     }
     .role {
       display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      font: 400 clamp(2.7rem, 5.5vw, 6rem)/.9 Anton, sans-serif;
+      flex-wrap: nowrap;
+      gap: 8px;
+      font: 400 clamp(2rem, 4.25vw, 4.7rem)/.9 Anton, sans-serif;
       text-transform: uppercase;
     }
     .word {
       border: 2px solid var(--line);
-      padding: 6px 12px 10px;
+      padding: 6px 10px 10px;
       background: var(--yellow);
       box-shadow: 5px 5px 0 var(--line);
     }
     .word:nth-child(2) { background: var(--blue); color: #fff; }
     .word:nth-child(3) { background: var(--green); color: #fff; }
+    .word:nth-child(4) { background: var(--red); color: #fff; }
     .lede {
       max-width: 720px;
       color: var(--muted);
@@ -431,6 +432,8 @@
       min-height: 360px;
       border: 2px solid var(--line);
       background: var(--card);
+      color: var(--ink);
+      text-decoration: none;
       box-shadow: 7px 7px 0 var(--line);
       padding: 18px;
       display: grid;
@@ -444,7 +447,7 @@
     .project-card:hover {
       transform: translate(3px, 3px);
       box-shadow: 4px 4px 0 var(--line);
-      background: var(--yellow);
+      background: var(--dock-fill);
     }
     .project-card:nth-child(2):hover {
       transform: rotate(1deg) translate(3px, 3px);
@@ -521,6 +524,12 @@
       display: grid;
       gap: 14px;
     }
+    .research-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: flex-start;
+    }
     .research-card h3,
     .education-card h3 {
       margin: 0;
@@ -542,12 +551,35 @@
     }
     .research-score {
       width: fit-content;
-      border: 2px solid var(--line);
-      background: var(--yellow);
-      padding: 10px 12px;
-      font: 700 14px/1.25 "Space Mono", monospace;
+      border-left: 6px solid var(--red);
+      background: var(--dock-fill);
+      padding: 10px 14px;
+      color: var(--ink);
+      font: 700 14px/1.4 "Space Mono", monospace;
       text-transform: uppercase;
-      box-shadow: 4px 4px 0 var(--line);
+    }
+    .research-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: flex-end;
+      flex-shrink: 0;
+    }
+    .research-actions a {
+      color: var(--ink);
+      text-decoration: none;
+      border: 2px solid var(--line);
+      background: var(--card);
+      padding: 7px 9px;
+      font: 700 11px/1 "Space Mono", monospace;
+      text-transform: uppercase;
+      box-shadow: 3px 3px 0 var(--line);
+      transition: transform .16s ease, box-shadow .16s ease, background .16s ease;
+    }
+    .research-actions a:hover {
+      background: var(--dock-fill);
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0 var(--line);
     }
     .cert-list {
       display: grid;
@@ -555,12 +587,15 @@
       gap: 14px;
     }
     .cert-item {
+      min-height: 156px;
       border: 2px solid var(--line);
       background: var(--card);
       box-shadow: 5px 5px 0 var(--line);
       padding: 16px;
       display: grid;
-      gap: 8px;
+      grid-template-rows: 34px auto 1fr;
+      gap: 10px;
+      align-items: start;
     }
     .cert-item h3 {
       margin: 0;
@@ -573,12 +608,16 @@
       line-height: 1.45;
     }
     .cert-label {
-      width: fit-content;
+      width: 128px;
+      height: 34px;
       border: 2px solid var(--line);
       background: var(--green);
       color: #fff;
-      padding: 7px 10px;
+      padding: 0 10px;
+      display: inline-grid;
+      place-items: center;
       font: 700 12px/1 "Space Mono", monospace;
+      text-align: center;
       text-transform: uppercase;
     }
     .contact {
@@ -633,6 +672,8 @@
       .skills { grid-template-columns: repeat(2, 1fr); }
       .project-grid { grid-template-columns: 1fr; }
       .cert-list { grid-template-columns: 1fr; }
+      .research-head { flex-direction: column; }
+      .research-actions { justify-content: flex-start; }
       .project-card:nth-child(2) { transform: none; }
       .project-card:nth-child(2):hover { transform: translate(3px, 3px); }
       .section-title { position: static; }
@@ -676,7 +717,10 @@
       }
       .hero { padding-top: 34px; min-height: auto; }
       h1 { font-size: 64px; }
-      .role { font-size: 38px; }
+      .role {
+        flex-wrap: wrap;
+        font-size: 38px;
+      }
       .sentence { grid-template-columns: 42px 1fr; }
       .lede, .actions { margin-left: 0; }
       .timeline::before { display: none; }
@@ -749,6 +793,7 @@
           <small>02</small>
           <div class="role">
             <span class="word">Java</span>
+            <span class="word">Python</span>
             <span class="word">AWS</span>
             <span class="word">RAG</span>
           </div>
@@ -835,18 +880,24 @@
     <section id="research" class="section wrap">
       <aside class="section-title"><small>06</small><h2>Research</h2></aside>
       <div class="research-card">
-        <div class="research-meta">Undergraduate Researcher / SVNIT Surat / Jul 2023 - Dec 2023</div>
+        <div class="research-head">
+          <div class="research-meta">Undergraduate Researcher / SVNIT Surat / Jul 2023 - Dec 2023</div>
+          <div class="research-actions">
+            <a href="https://www.sciencedirect.com/science/article/pii/S1877050925016163" target="_blank" rel="noopener">Read Paper</a>
+            <a href="https://github.com/Atharvp18/NLU-Based-Query-Processing" target="_blank" rel="noopener">Code</a>
+          </div>
+        </div>
         <h3>Intent-Based Legal Case Retrieval</h3>
         <p>Designed and fine-tuned an intent detection module to classify legal queries and generate accurate Cypher queries for retrieving case details from a Neo4j-based legal property graph.</p>
-        <p>Enabled intent-based retrieval of 9,377 Supreme Court cases using Wit AI and Neo4j, improving accessibility for lawyers and the public.</p>
-        <div class="research-score">F1 Score: 0.89 / Procedia Computer Science / ICMLDE 2025</div>
+        <p>Enabled intent-based retrieval of 9,377 Supreme Court cases using Wit.ai and Neo4j, achieving an intent detection F1 score of 0.89 while improving accessibility for lawyers and the public.</p>
+        <div class="research-score">Procedia Computer Science / ICMLDE 2025</div>
       </div>
     </section>
 
     <section id="projects" class="section wrap">
       <aside class="section-title"><small>07</small><h2>What I've Shipped</h2></aside>
       <div class="project-grid">
-        <article class="project-card">
+        <a class="project-card" href="https://github.com/Atharvp18/Its-a-Feature" target="_blank" rel="noopener">
           <div class="project-top">
             <span class="project-tag">Code For Good</span>
             <span class="project-index">01</span>
@@ -866,9 +917,9 @@
             <span class="tech-chip">MongoDB</span>
             <span class="tech-chip">Firebase</span>
           </div>
-        </article>
+        </a>
 
-        <article class="project-card">
+        <a class="project-card" href="https://github.com/Atharvp18/Voyageur-MLSA-Project" target="_blank" rel="noopener">
           <div class="project-top">
             <span class="project-tag">MERN</span>
             <span class="project-index">02</span>
@@ -888,7 +939,7 @@
             <span class="tech-chip">React</span>
             <span class="tech-chip">Node.js</span>
           </div>
-        </article>
+        </a>
       </div>
     </section>
 
@@ -927,7 +978,7 @@
           <p>Hack The Tank, 24-hour Pan-India Hackathon ft. Shark Tank India entrepreneurs / 100+ participants</p>
         </article>
         <article class="cert-item">
-          <span class="cert-label">Creative</span>
+          <span class="cert-label">Leadership</span>
           <h3>Video Editor Lead</h3>
           <p>Renesa, Media and Publication House, NIT Surat / 2022-23</p>
         </article>
@@ -938,6 +989,7 @@
       <h2>Let's<br>Build.</h2>
       <div>
         <a href="mailto:atharvsa@usc.edu">atharvsa@usc.edu</a>
+        <a href="mailto:patilatharv1801@gmail.com">patilatharv1801@gmail.com</a>
         <a href="#">Los Angeles, CA</a>
         <a href="https://www.linkedin.com/in/atharv-patil-936466206/" target="_blank" rel="noopener">LinkedIn</a>
         <a href="https://github.com/Atharvp18" target="_blank" rel="noopener">GitHub</a>
