@@ -84,16 +84,16 @@
       padding: 12px 10px;
     }
     .rail-links a {
-      min-height: 78px;
+      min-height: clamp(46px, 6vh, 68px);
       color: var(--ink);
       text-decoration: none;
       border: 2px solid transparent;
       display: grid;
       place-items: center;
-      gap: 8px;
       font: 700 11px/1 "Space Mono", monospace;
       text-transform: uppercase;
       border-radius: 18px;
+      position: relative;
       transition: background .18s ease, color .18s ease, border-color .18s ease, transform .18s ease;
     }
     .rail-links a:first-child { border-top: 2px solid transparent; }
@@ -101,6 +101,27 @@
       background: var(--yellow);
       border-color: var(--line);
       transform: rotate(-2deg);
+    }
+    .rail-label {
+      position: absolute;
+      left: calc(100% + 12px);
+      top: 50%;
+      z-index: 5;
+      min-width: max-content;
+      border: 2px solid var(--line);
+      background: var(--card);
+      color: var(--ink);
+      box-shadow: 4px 4px 0 var(--line);
+      padding: 8px 10px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translate(-8px, -50%);
+      transition: opacity .16s ease, transform .16s ease;
+    }
+    .rail-links a:hover .rail-label,
+    .rail-links a:focus-visible .rail-label {
+      opacity: 1;
+      transform: translate(0, -50%);
     }
     .rail-links svg {
       width: 28px;
@@ -581,10 +602,29 @@
       transform: translate(2px, 2px);
       box-shadow: 1px 1px 0 var(--line);
     }
+    .creative-showcase {
+      margin: 0;
+    }
+    .creative-showcase img {
+      width: 100%;
+      height: min(74vh, 860px);
+      object-fit: contain;
+      display: block;
+      background: transparent;
+    }
     .cert-list {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+    .cert-group {
+      display: grid;
       gap: 14px;
+    }
+    .cert-group.two-col {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .cert-group.three-col {
+      grid-template-columns: repeat(3, 1fr);
     }
     .cert-item {
       min-height: 156px;
@@ -656,7 +696,7 @@
         box-shadow: 3px 3px 0 var(--line);
       }
       .rail-links { padding: 8px 7px; gap: 6px; }
-      .rail-links a { min-height: 70px; font-size: 0; border-radius: 14px; }
+      .rail-links a { min-height: clamp(42px, 6vh, 60px); font-size: 0; border-radius: 14px; }
       .rail-links svg { width: 25px; height: 25px; }
       .hero, .section, .contact { grid-template-columns: 1fr; }
       .photo-card { transform: none; }
@@ -671,6 +711,8 @@
       .tag { justify-self: start; }
       .skills { grid-template-columns: repeat(2, 1fr); }
       .project-grid { grid-template-columns: 1fr; }
+      .cert-group.two-col,
+      .cert-group.three-col { grid-template-columns: 1fr; }
       .cert-list { grid-template-columns: 1fr; }
       .research-head { flex-direction: column; }
       .research-actions { justify-content: flex-start; }
@@ -703,6 +745,7 @@
         border-right: 0;
         border-radius: 12px;
       }
+      .rail-label { display: none; }
       .rail-links a:first-child { border-top: 0; }
       .rail-bottom { display: none; }
       .page { margin-left: 0; padding-bottom: 74px; }
@@ -731,6 +774,8 @@
         padding: 8px 12px;
       }
       .skills, .project-grid, .cert-list { grid-template-columns: 1fr; }
+      .cert-group.two-col,
+      .cert-group.three-col { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -742,27 +787,39 @@
     <nav class="rail-links">
       <a href="#home" aria-label="Home">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M9 20v-6h6v6"/></svg>
-        Home
+        <span class="rail-label">Home</span>
       </a>
-      <a href="#experience" aria-label="Experience">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 7h16v13H4z"/><path d="M9 7V4h6v3"/><path d="M4 13h16"/></svg>
-        Work
+      <a href="#education" aria-label="Education">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 6l8-3 8 3-8 3z"/><path d="M6 10v5c0 2 3 4 6 4s6-2 6-4v-5"/></svg>
+        <span class="rail-label">Education</span>
       </a>
       <a href="#skills" aria-label="Skills">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2l3 7h7l-5.5 4.2 2.2 7L12 16l-6.7 4.2 2.2-7L2 9h7z"/></svg>
-        Skills
+        <span class="rail-label">Skills</span>
       </a>
-      <a href="#research" aria-label="Research">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-        Research
+      <a href="#experience" aria-label="Experience">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 7h16v13H4z"/><path d="M9 7V4h6v3"/><path d="M4 13h16"/></svg>
+        <span class="rail-label">Experience</span>
       </a>
       <a href="#projects" aria-label="Projects">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 5h16v14H4z"/><path d="M4 10h16"/><path d="M9 14h6"/></svg>
-        Projects
+        <span class="rail-label">Projects</span>
+      </a>
+      <a href="#research" aria-label="Research">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        <span class="rail-label">Research</span>
+      </a>
+      <a href="#certifications" aria-label="Credentials">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M7 3h10v18l-5-3-5 3z"/><path d="M9 8h6"/><path d="M9 12h4"/></svg>
+        <span class="rail-label">Credentials</span>
+      </a>
+      <a href="#creative" aria-label="Creative Side">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 4h16v16H4z"/><path d="M4 9h16"/><path d="M9 4v5"/></svg>
+        <span class="rail-label">Creative Side</span>
       </a>
       <a href="#contact" aria-label="Contact">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 5h16v14H4z"/><path d="M4 7l8 6 8-6"/></svg>
-        Contact
+        <span class="rail-label">Contact</span>
       </a>
     </nav>
     <div class="rail-bottom">
@@ -814,55 +871,24 @@
       </figure>
     </section>
 
-    <section id="experience" class="section wrap">
-      <aside class="section-title"><small>04</small><h2>Experience</h2></aside>
-      <div class="timeline">
-        <article class="timeline-item">
-          <div class="timeline-dot">01</div>
-          <div class="timeline-card">
-            <div class="timeline-meta">
-              <span class="timeline-role">SDE II</span>
-              <span class="timeline-date">Jan 2026 - Jun 2026</span>
-            </div>
-            <h3>Software Development Engineer II</h3>
-            <div class="timeline-company">J.P. Morgan Chase & Co.</div>
-            <p>Extended a RAG-based system with client-in-context retrieval across five specialized sub-agents, enabling about 200 financial advisors to ask client-specific questions with real-time data retrieval.</p>
-            <div class="timeline-highlight">Improved the architecture by migrating vector storage from ChromaDB to AWS OpenSearch and replacing a custom Python implementation with an agentic Google ADK workflow.</div>
-          </div>
+    <section id="education" class="section wrap">
+      <aside class="section-title"><small>02</small><h2>Education</h2></aside>
+      <div class="stack">
+        <article class="education-card">
+          <div class="education-meta">University of Southern California / Los Angeles, CA</div>
+          <h3>Master of Science in Computer Science</h3>
+          <p>Aug 2026 - May 2028 (Expected)</p>
         </article>
-
-        <article class="timeline-item">
-          <div class="timeline-dot">02</div>
-          <div class="timeline-card">
-            <div class="timeline-meta">
-              <span class="timeline-role">SDE I</span>
-              <span class="timeline-date">Jan 2024 - Jan 2026</span>
-            </div>
-            <h3>Software Development Engineer I</h3>
-            <div class="timeline-company">J.P. Morgan Chase & Co.</div>
-            <p>Re-architected a high-volume calculator and reporting workflow with Spring Boot, AWS Lambda, multithreading, and a React dashboard to process about 600K records and automate report delivery for operations teams.</p>
-            <div class="timeline-highlight">Reduced the calculator runtime from about 2 hours to 8 minutes and lowered RAG service infrastructure costs by about 60% by migrating the service from AWS EKS to AWS ECS.</div>
-          </div>
-        </article>
-
-        <article class="timeline-item">
-          <div class="timeline-dot">03</div>
-          <div class="timeline-card">
-            <div class="timeline-meta">
-              <span class="timeline-role">Intern</span>
-              <span class="timeline-date">May 2023 - Jul 2023</span>
-            </div>
-            <h3>Software Engineer Program Intern</h3>
-            <div class="timeline-company">J.P. Morgan Chase & Co.</div>
-            <p>Optimized an internal query-language parser, added Databricks SQL dialect support, and built nested data retrieval with Apache Calcite.</p>
-            <div class="timeline-highlight">Added Databricks SQL support and built nested data retrieval with Apache Calcite, reducing query errors by about 20% and improving retrieval speed by about 35%.</div>
-          </div>
+        <article class="education-card">
+          <div class="education-meta">Sardar Vallabhbhai National Institute of Technology / Surat, India</div>
+          <h3>Bachelor of Technology in Computer Science & Engineering</h3>
+          <p>Aug 2020 - Jan 2024 / CGPA: 8.75/10 / First Class with Distinction</p>
         </article>
       </div>
     </section>
 
     <section id="skills" class="section wrap">
-      <aside class="section-title"><small>05</small><h2>Skills</h2></aside>
+      <aside class="section-title"><small>03</small><h2>Skills</h2></aside>
       <div class="skills">
         <div class="skill">Java</div>
         <div class="skill">Spring Boot</div>
@@ -877,25 +903,55 @@
       </div>
     </section>
 
-    <section id="research" class="section wrap">
-      <aside class="section-title"><small>06</small><h2>Research</h2></aside>
-      <div class="research-card">
-        <div class="research-head">
-          <div class="research-meta">Undergraduate Researcher / SVNIT Surat / Jul 2023 - Dec 2023</div>
-          <div class="research-actions">
-            <a href="https://www.sciencedirect.com/science/article/pii/S1877050925016163" target="_blank" rel="noopener">Read Paper</a>
-            <a href="https://github.com/Atharvp18/NLU-Based-Query-Processing" target="_blank" rel="noopener">Code</a>
+    <section id="experience" class="section wrap">
+      <aside class="section-title"><small>04</small><h2>Experience</h2></aside>
+      <div class="timeline">
+        <article class="timeline-item">
+          <div class="timeline-dot">01</div>
+          <div class="timeline-card">
+            <div class="timeline-meta">
+              <span class="timeline-role">SDE II</span>
+              <span class="timeline-date">Jan 2026 - Jun 2026</span>
+            </div>
+            <h3>Software Development Engineer II</h3>
+            <div class="timeline-company">J.P. Morgan Chase & Co.</div>
+            <p>Extended a RAG application with client-in-context workflows across five specialized sub-agents, improving response relevance for nearly 200 financial advisors asking client-specific questions with real-time data retrieval.</p>
+            <div class="timeline-highlight">Led modernization from ChromaDB to AWS OpenSearch and from a custom Python RAG implementation to an agentic framework built on Google ADK.</div>
           </div>
-        </div>
-        <h3>Intent-Based Legal Case Retrieval</h3>
-        <p>Designed and fine-tuned an intent detection module to classify legal queries and generate accurate Cypher queries for retrieving case details from a Neo4j-based legal property graph.</p>
-        <p>Enabled intent-based retrieval of 9,377 Supreme Court cases using Wit.ai and Neo4j, achieving an intent detection F1 score of 0.89 while improving accessibility for lawyers and the public.</p>
-        <div class="research-score">Procedia Computer Science / ICMLDE 2025</div>
+        </article>
+
+        <article class="timeline-item">
+          <div class="timeline-dot">02</div>
+          <div class="timeline-card">
+            <div class="timeline-meta">
+              <span class="timeline-role">SDE I</span>
+              <span class="timeline-date">Jan 2024 - Jan 2026</span>
+            </div>
+            <h3>Software Development Engineer I</h3>
+            <div class="timeline-company">J.P. Morgan Chase & Co.</div>
+            <p>Worked across backend, cloud, and data modernization for private banking systems, including Spring Boot microservices, AWS Lambda ETL pipelines, RAG advisor workflows, and high-volume reporting tools.</p>
+            <div class="timeline-highlight">Re-architected an offset calculator processing around 600K records from nearly 2 hours to about 8 minutes, integrated 15 years of legacy mainframe data into AWS Lambda ETL pipelines, and migrated the RAG service from AWS EKS to AWS ECS to reduce infrastructure costs by about 30%.</div>
+          </div>
+        </article>
+
+        <article class="timeline-item">
+          <div class="timeline-dot">03</div>
+          <div class="timeline-card">
+            <div class="timeline-meta">
+              <span class="timeline-role">Intern</span>
+              <span class="timeline-date">May 2023 - Jul 2023</span>
+            </div>
+            <h3>Software Engineer Program Intern</h3>
+            <div class="timeline-company">J.P. Morgan Chase & Co.</div>
+            <p>Optimized an internal query-language-to-SQL parser using Spring Boot, lowered response latency, added Databricks SQL dialect support, and built nested data retrieval with Apache Calcite.</p>
+            <div class="timeline-highlight">Improved query reliability and retrieval speed by adding Databricks SQL support and nested data retrieval for complex internal query workflows.</div>
+          </div>
+        </article>
       </div>
     </section>
 
     <section id="projects" class="section wrap">
-      <aside class="section-title"><small>07</small><h2>What I've Shipped</h2></aside>
+      <aside class="section-title"><small>05</small><h2>What I've Shipped</h2></aside>
       <div class="project-grid">
         <a class="project-card" href="https://github.com/Atharvp18/Its-a-Feature" target="_blank" rel="noopener">
           <div class="project-top">
@@ -940,49 +996,108 @@
             <span class="tech-chip">Node.js</span>
           </div>
         </a>
+
+        <a class="project-card" href="https://github.com/Atharvp18/Code-Innovation-Series-SVNIT" target="_blank" rel="noopener">
+          <div class="project-top">
+            <span class="project-tag">Code Innovation Hackathon</span>
+            <span class="project-index">03</span>
+          </div>
+          <div>
+            <h3>Asterix - A Discord Bot</h3>
+            <p>A simple Discord bot built for the Code Innovation Hackathon.</p>
+          </div>
+          <ul class="project-bullets">
+            <li>Sit command reminds users to sit straight while gaming every 15 minutes</li>
+            <li>Sleep command reminds users to sleep after a custom amount of time</li>
+            <li>Water command reminds users to drink water while gaming every 30 minutes</li>
+          </ul>
+          <div class="tech-stack">
+            <span class="tech-chip">Discord Bot</span>
+            <span class="tech-chip">Discord API</span>
+            <span class="tech-chip">Commands</span>
+          </div>
+        </a>
+
+        <a class="project-card" href="https://github.com/Atharvp18/Python-Projects/tree/main/Alien-Invasion" target="_blank" rel="noopener">
+          <div class="project-top">
+            <span class="project-tag">Game</span>
+            <span class="project-index">04</span>
+          </div>
+          <div>
+            <h3>Alien Invasion</h3>
+            <p>Python game built with reference to Eric Matthes' Python Crash Course, then extended with additional features.</p>
+          </div>
+          <ul class="project-bullets">
+            <li>Added ship movement in all directions using W, S, A, and D controls</li>
+            <li>Added sound effects to make the gameplay more interesting</li>
+            <li>Added a background to improve the overall game look</li>
+          </ul>
+          <div class="tech-stack">
+            <span class="tech-chip">Python</span>
+            <span class="tech-chip">Pygame</span>
+            <span class="tech-chip">Python Crash Course</span>
+          </div>
+        </a>
       </div>
     </section>
 
-    <section id="education" class="section wrap">
-      <aside class="section-title"><small>08</small><h2>Education</h2></aside>
-      <div class="stack">
-        <article class="education-card">
-          <div class="education-meta">University of Southern California / Los Angeles, CA</div>
-          <h3>Master of Science in Computer Science</h3>
-          <p>Aug 2026 - May 2028 (Expected)</p>
-        </article>
-        <article class="education-card">
-          <div class="education-meta">Sardar Vallabhbhai National Institute of Technology / Surat, India</div>
-          <h3>Bachelor of Technology in Computer Science & Engineering</h3>
-          <p>Aug 2020 - Jan 2024 / CGPA: 8.75/10 / First Class with Distinction</p>
-        </article>
+    <section id="research" class="section wrap">
+      <aside class="section-title"><small>06</small><h2>Research</h2></aside>
+      <div class="research-card">
+        <div class="research-head">
+          <div class="research-meta">Undergraduate Researcher / SVNIT Surat / Jul 2023 - Dec 2023</div>
+          <div class="research-actions">
+            <a href="https://www.sciencedirect.com/science/article/pii/S1877050925016163" target="_blank" rel="noopener">Read Paper</a>
+            <a href="https://github.com/Atharvp18/NLU-Based-Query-Processing" target="_blank" rel="noopener">Code</a>
+          </div>
+        </div>
+        <h3>Intent-Based Legal Case Retrieval</h3>
+        <p>Designed and fine-tuned an intent detection module to classify legal queries and generate accurate Cypher queries for retrieving case details from a Neo4j-based legal property graph.</p>
+        <p>Enabled intent-based retrieval of 9,377 Supreme Court cases using Wit.ai and Neo4j, achieving an intent detection F1 score of 0.89 while improving accessibility for lawyers and the public.</p>
+        <div class="research-score">Procedia Computer Science / ICMLDE 2025</div>
       </div>
     </section>
 
     <section id="certifications" class="section wrap">
-      <aside class="section-title"><small>09</small><h2>Credentials</h2></aside>
+      <aside class="section-title"><small>07</small><h2>Credentials</h2></aside>
       <div class="cert-list">
-        <article class="cert-item">
-          <span class="cert-label">Certification</span>
-          <h3>Amazon AWS Certified Developer - Associate</h3>
-          <p>April 2026</p>
-        </article>
-        <article class="cert-item">
-          <span class="cert-label">Leadership</span>
-          <h3>Web Development Lead</h3>
-          <p>Google Developer Student Clubs, NIT Surat / 2022-23</p>
-        </article>
-        <article class="cert-item">
-          <span class="cert-label">Leadership</span>
-          <h3>Logistics Lead</h3>
-          <p>Hack The Tank, 24-hour Pan-India Hackathon ft. Shark Tank India entrepreneurs / 100+ participants</p>
-        </article>
-        <article class="cert-item">
-          <span class="cert-label">Leadership</span>
-          <h3>Video Editor Lead</h3>
-          <p>Renesa, Media and Publication House, NIT Surat / 2022-23</p>
-        </article>
+        <div class="cert-group two-col">
+          <article class="cert-item">
+            <span class="cert-label">Certification</span>
+            <h3>Amazon AWS Certified Developer - Associate</h3>
+            <p>April 2026</p>
+          </article>
+          <article class="cert-item">
+            <span class="cert-label">Certification</span>
+            <h3>MERN Stack Front To Back</h3>
+            <p>Udemy course covering MongoDB, Express, React, and Node.js full-stack development</p>
+          </article>
+        </div>
+        <div class="cert-group three-col">
+          <article class="cert-item">
+            <span class="cert-label">Leadership</span>
+            <h3>Web Development Lead</h3>
+            <p>Google Developer Student Clubs, NIT Surat / 2022-23</p>
+          </article>
+          <article class="cert-item">
+            <span class="cert-label">Leadership</span>
+            <h3>Logistics Lead</h3>
+            <p>Hack The Tank, 24-hour Pan-India Hackathon ft. Shark Tank India entrepreneurs / 100+ participants</p>
+          </article>
+          <article class="cert-item">
+            <span class="cert-label">Leadership</span>
+            <h3>Video Editor Lead</h3>
+            <p>Renesa, Media and Publication House, NIT Surat / 2022-23</p>
+          </article>
+        </div>
       </div>
+    </section>
+
+    <section id="creative" class="section wrap">
+      <aside class="section-title"><small>08</small><h2>Creative Side</h2></aside>
+      <figure class="creative-showcase">
+        <img src="../images/creative-side.png" alt="Atharv creative side showcase">
+      </figure>
     </section>
 
     <section id="contact" class="contact wrap">
