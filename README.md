@@ -42,29 +42,6 @@ Then visit:
 http://localhost:8000
 ```
 
-## GitHub Pages Deployment
-
-This site is ready to host with GitHub Pages because the production entry file is at the repository root:
-
-```text
-index.html
-```
-
-In GitHub:
-
-1. Go to repository `Settings`.
-2. Open `Pages`.
-3. Set source to `Deploy from a branch`.
-4. Select the `main` branch.
-5. Select `/ (root)` as the folder.
-6. Save.
-
-The site will be published at:
-
-```text
-https://atharvp18.github.io/portfolio-v2/
-```
-
 ## Notes
 
 - `prototype/` contains the design prototype used before creating the production static files.
