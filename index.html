@@ -132,6 +132,8 @@
         <div class="skill">JavaScript</div>
         <div class="skill">LLM</div>
         <div class="skill">RAG</div>
+        <div class="skill">Google ADK</div>
+        <div class="skill">Prompt Engineering</div>
         <div class="skill">Docker</div>
       </div>
     </section>
@@ -148,8 +150,8 @@
             </div>
             <h3>Software Development Engineer II</h3>
             <div class="timeline-company">J.P. Morgan Chase & Co.</div>
-            <p>Extended a RAG application with client-in-context workflows across five specialized sub-agents, improving response relevance for nearly 200 financial advisors asking client-specific questions with real-time data retrieval.</p>
-            <div class="timeline-highlight">Led modernization from ChromaDB to AWS OpenSearch and from a custom Python RAG implementation to an agentic framework built on Google ADK.</div>
+            <p>Extended a RAG system across four specialized sub-agents with a client-in-context feature, saving advisors about three minutes of manual UI navigation to retrieve client-specific data.</p>
+            <div class="timeline-highlight">Led the GPT-4o-to-GPT-5.2 migration, improving agent response accuracy from 90% to 95% through prompt re-engineering and automated validation. Migrated ChromaDB to AWS OpenSearch to improve retrieval scalability and maintainability.</div>
           </div>
         </article>
 
@@ -186,10 +188,32 @@
     <section id="projects" class="section wrap">
       <aside class="section-title"><small>05</small><h2>What I've Shipped</h2></aside>
       <div class="project-grid">
+        <a class="project-card" href="https://github.com/Atharvp18/evalGate" target="_blank" rel="noopener">
+          <div class="project-top">
+            <span class="project-tag">LLM Evaluation</span>
+            <span class="project-index">01</span>
+          </div>
+          <div>
+            <h3>EvalGate</h3>
+            <p>Evaluation and regression-testing framework for LLM agents, built to detect meaningful quality changes despite non-deterministic outputs.</p>
+          </div>
+          <ul class="project-bullets">
+            <li>Supports five scorer types: contains, regex, numeric, trajectory, and LLM-judge</li>
+            <li>Runs N-trial statistical scoring with Wilson confidence intervals to distinguish real regressions from normal output variance</li>
+            <li>Deployed a multi-agent research assistant on Google ADK with the live SEC EDGAR API and a GitHub Actions gate that blocks regressive pull requests</li>
+          </ul>
+          <div class="tech-stack">
+            <span class="tech-chip">Google ADK</span>
+            <span class="tech-chip">LLM Agents</span>
+            <span class="tech-chip">GitHub Actions</span>
+            <span class="tech-chip">SEC EDGAR API</span>
+          </div>
+        </a>
+
         <a class="project-card" href="https://github.com/Atharvp18/Its-a-Feature" target="_blank" rel="noopener">
           <div class="project-top">
             <span class="project-tag">Code For Good</span>
-            <span class="project-index">01</span>
+            <span class="project-index">02</span>
           </div>
           <div>
             <h3>Healthcare Platform</h3>
@@ -211,7 +235,7 @@
         <a class="project-card" href="https://github.com/Atharvp18/Voyageur-MLSA-Project" target="_blank" rel="noopener">
           <div class="project-top">
             <span class="project-tag">MERN</span>
-            <span class="project-index">02</span>
+            <span class="project-index">03</span>
           </div>
           <div>
             <h3>Voyageur</h3>
@@ -233,7 +257,7 @@
         <a class="project-card" href="https://github.com/Atharvp18/Code-Innovation-Series-SVNIT" target="_blank" rel="noopener">
           <div class="project-top">
             <span class="project-tag">Code Innovation Hackathon</span>
-            <span class="project-index">03</span>
+            <span class="project-index">04</span>
           </div>
           <div>
             <h3>Asterix - A Discord Bot</h3>
@@ -254,7 +278,7 @@
         <a class="project-card" href="https://github.com/Atharvp18/Python-Projects/tree/main/Alien-Invasion" target="_blank" rel="noopener">
           <div class="project-top">
             <span class="project-tag">Game</span>
-            <span class="project-index">04</span>
+            <span class="project-index">05</span>
           </div>
           <div>
             <h3>Alien Invasion</h3>
@@ -294,11 +318,16 @@
     <section id="certifications" class="section wrap">
       <aside class="section-title"><small>07</small><h2>Credentials</h2></aside>
       <div class="cert-list">
-        <div class="cert-group two-col">
+        <div class="cert-group three-col">
           <article class="cert-item">
             <span class="cert-label">Certification</span>
             <h3>Amazon AWS Certified Developer - Associate</h3>
             <p>April 2026</p>
+          </article>
+          <article class="cert-item">
+            <span class="cert-label">Certification</span>
+            <h3 class="cert-course-title">Kaggle 5-Day AI Agents Intensive Coding Course</h3>
+            <p>June 2026</p>
           </article>
           <article class="cert-item">
             <span class="cert-label">Certification</span>

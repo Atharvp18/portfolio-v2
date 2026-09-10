@@ -264,6 +264,7 @@ h1 {
   color: #fff;
 }
 .photo-card {
+  margin: 0;
   border: 2px solid var(--line);
   background: var(--card);
   padding: 10px;
@@ -272,9 +273,10 @@ h1 {
 }
 .photo-card img {
   width: 100%;
-  height: min(68vh, 640px);
+  aspect-ratio: 3 / 4;
+  height: auto;
   object-fit: cover;
-  object-position: center 22%;
+  object-position: center;
   display: block;
 }
 .section {
@@ -433,6 +435,21 @@ h1 {
   align-content: end;
   font: 700 17px/1.1 "Space Mono", monospace;
   box-shadow: 5px 5px 0 var(--line);
+}
+@media (min-width: 981px) {
+  .skills {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .skill {
+    flex: 0 0 calc((100% - 40px) / 5);
+  }
+  .project-grid > .project-card:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+    width: calc((100% - 18px) / 2);
+    justify-self: center;
+  }
 }
 .project-grid {
   display: grid;
@@ -630,6 +647,9 @@ h1 {
 .cert-item h3 {
   margin: 0;
   font-size: 22px;
+}
+.cert-item .cert-course-title {
+  font-size: 20px;
 }
 .cert-item p {
   margin: 0;
